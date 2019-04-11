@@ -3,17 +3,21 @@
 {% load crispy_forms_tags %}
 {% block content %}
 	<div class="container">
+	<h3>Search results for: <span class="h5">"{{text}}"</span></h3>
+
 		<div class="row">
+			
 			{% for movie in results %}
 				<div class="card moviecard m-4" >
 					<img src="{{movie.small_img}}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title">{{movie.title}}</h5>
 						<p class="card-text">{{movie.desc | truncatechars:100 }}</p>
-						<a href="{% url 'movie' movie.id %}" class="btn btn-primary">Reviews</a>
+						<a href="{% url 'movie' movie.id %}" class="btn btn-primary">Movie Page</a>
 					</div>
 				</div>
 			{% endfor %}
+			
 		</div>
 		
 	</div>
