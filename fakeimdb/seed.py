@@ -46,7 +46,7 @@ def gen_title():
 	return fake.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None)
 
 def gen_paragraph():
-	return fake.paragraphs(nb=3, ext_word_list=None)
+	return fake.paragraph(nb_sentences=5, variable_nb_sentences=True, ext_word_list=None)
 
 def create_users(number):
 	for i in range(0, number):

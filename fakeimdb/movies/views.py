@@ -3,6 +3,8 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from django.db.models import Q
+
 
 
 # Create your views here.
@@ -13,7 +15,12 @@ def index(request):
 
 def movie(request, movie_id):
 	movie = Movie.objects.get(pk=movie_id)
-	return render(request, 'movie.html', {'movie' : movie})
+	rating = 0
+	for review in movie.moviereview_set.all():
+		rating += review.rating
+	rating = rating/movie.moviereview_set.count()
+
+	return render(request, 'movie.html', {'movie' : movie, 'rating' : rating})
 
 def review(request,review_id):
 	review = MovieReview.objects.get(pk=review_id)
@@ -38,16 +45,17 @@ def signup(request):
 
 @login_required
 def add_review(request, movie_id):
+	movie = Movie.objects.get(pk=movie_id)
 	if request.method == 'POST':
 		review_form = MovieReviewForm(request.POST)
 		if review_form.is_valid():
 			review = review_form.save(commit=False)
 			review.user = request.user
-			review.movie = Movie.objects.get(pk=movie_id)
+			review.movie = movie
 			review.save()
 			return redirect('movie', movie_id)
 	form = MovieReviewForm()
-	return render(request, 'addreview.html', {'form' : form })
+	return render(request, 'addreview.html', {'form' : form, 'movie' : movie })
 
 
 @login_required
@@ -61,17 +69,27 @@ def comment(request, review_id):
 			comment.review = review
 			comment.save()
 			return redirect('review', review_id)
-	form = ReviewCommentForm()
-	return render(request, 'addcomment.html', {'form' : form})
+	return redirect('review', review_id)
 
 def upvote(request, review_id):
 	review = MovieReview.objects.get(pk=review_id)
 	review.votes += 1
 	review.save()
-	return redirect('review', review.id)
+	return redirect(request.META['HTTP_REFERER'])
 
 def downvote(request, review_id):
 	review = MovieReview.objects.get(pk=review_id)
 	review.votes -= 1
 	review.save()
-	return redirect('review', review.id)
+	return redirect(request.META['HTTP_REFERER'])
+
+def search(request):
+	if request.method != 'POST':
+		return redirect('index')
+
+	text = request.POST.get('search', '')
+	results = Movie.objects.filter(
+		Q(title__icontains=text) |
+		Q(desc__icontains=text) )
+
+	return render(request, 'search_results.html', {'results' : results, 'text' : text})

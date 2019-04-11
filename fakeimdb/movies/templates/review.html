@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{review.title}} | FakeIMDB{% endblock %}
+{% block title %}{{review.movie.title}} | FakeIMDB{% endblock %}
 {% block content %}
 	<div class="container">
 		<div class="row  mt-4">
@@ -28,19 +28,32 @@
 						<span>Review Score: {{review.votes}}</span>
 					</div>
 				</div>
-				<a class="btn btn-outline-dark"href="{% url 'comment' review.id%}">Comment</a>
-			</div>
-			{% for comment in review.reviewcomment_set.all %}
-				<div class="card">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>{{comment.content}}</p>
-						<footer class="blockquote-footer">{{comment.user.first_name}} {{comment.user.last_name}}<cite title="Source Title">{{comment.pub_date | timesince}} ago</cite></footer>
-					</blockquote>
+				<a class="btn btn-outline-dark" data-toggle="collapse" href="#comment" role="button" aria-expanded="false" aria-controls="comment">Comment</a>
+				<div class="row">
+					<div class="col">
+						<div class="collapse multi-collapse" id="comment">
+							<form method="post" action="{% url 'comment' review.id %}">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="content">Write your comment</label>
+									<textarea class="form-control" id="content" name="content" rows="3"></textarea>
+								</div>
+								<button type="submit" class="btn btn-sm btn-outline-dark">Submit</button>
+							</form>
+						</div>
+					</div>
 				</div>
-			</div>
-		{% endfor %}
+				{% for comment in review.reviewcomment_set.all %}
+					<div class="card">
+						<div class="card-body">
+							<blockquote class="blockquote mb-0">
+								<p>{{comment.content}}</p>
+							<footer class="blockquote-footer">{{comment.user.first_name}} {{comment.user.last_name}}, <cite title="Source Title">{{comment.pub_date | timesince}} ago</cite></footer>
+						</blockquote>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
 </div>
 {% endblock %}
