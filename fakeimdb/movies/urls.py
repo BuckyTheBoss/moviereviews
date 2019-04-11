@@ -11,5 +11,7 @@ urlpatterns = [
 	path('reviews/<int:review_id>/upvote', views.upvote, name='upvote'),
 	path('reviews/<int:review_id>/downvote', views.downvote, name='downvote'),
 	path('search', views.search, name='search'),
-
+	path('imdbsearch', views.imdbsearch, name='imdbsearch'),
+	path('imdbmovie/<int:tt>', views.imdb_movie, name='imdb_movie'),
+	path('imdbmovie/<int:tt>/add', views.add_movie, name='add_movie')
 ]

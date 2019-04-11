@@ -20,14 +20,16 @@
 							<div>Rating: {{review.rating}}/10</div>
 						</div>
 						<div class="card-body d-flex justify-content-between">
-							<blockquote class="blockquote mb-0">
+							<div class="blockquote mb-0">
 								<p>{{review.content}}</p>
 							<footer class="blockquote-footer">{{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></footer>
-						</blockquote>
-						<div>
-							<a href="{% url 'upvote' review.id %}" class="btn btn-sm btn-outline-success">up</a>
-						<a href="{% url 'downvote' review.id %}" class="btn btn-sm btn-outline-danger">down</a>
-						<span>Review Score: {{review.votes}}</span>
+						</div>
+						<div class="ml-4">
+							<div class="d-flex">
+								<a href="{% url 'upvote' review.id %}" class="btn btn-sm btn-outline-success"><img src="https://img.icons8.com/material-two-tone/30/000000/thumb-up.png"></a>
+						<a href="{% url 'downvote' review.id %}" class="btn btn-sm btn-outline-danger"><img src="https://img.icons8.com/material-two-tone/30/000000/thumbs-down.png"></a>
+					</div>
+						<h6>Review Score: {{review.votes}}</h6>
 							<a class="btn btn-outline-dark" href="{% url 'review' review.id %}">See Review</a>
 						</div>
 					</div>

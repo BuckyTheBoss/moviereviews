@@ -4,8 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.db.models import Q
-
-
+from imdb import IMDb
 
 # Create your views here.
 
@@ -94,3 +93,31 @@ def search(request):
 		Q(desc__icontains=text) )
 
 	return render(request, 'search_results.html', {'results' : results, 'text' : text})
+
+def imdbsearch(request):
+	if request.method != 'POST':
+		return render(request, 'imdb_results.html')
+	text = request.POST.get('search', '')
+	ia = IMDb()
+	movies = ia.search_movie(text)
+	return render(request, 'imdb_results.html', {'movies' : movies, 'text' : text})
+
+def imdb_movie(request, tt):
+	ia = IMDb()
+	movie = ia.get_movie(tt)
+	return render(request, 'imdbmovie.html', {'movie' : movie})
+
+
+def add_movie(request, tt):
+	ia = IMDb()
+	imdb_movie = ia.get_movie(tt)
+	movie = Movie(
+			title = imdb_movie['title'],
+			desc = imdb_movie.get('plot outline', None), 
+			pub_date = imdb_movie['year'], 
+			small_img = imdb_movie['cover'],
+			big_img = imdb_movie['full-size cover url']
+			)
+	movie.save()
+	return redirect('movie', movie.id)
+
