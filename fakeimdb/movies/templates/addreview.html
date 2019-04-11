@@ -2,7 +2,18 @@
 {% block title %}Add Review | FakeIMDB{% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
+			<div class="row">
+				<div class="col-3"> 
+			<img src="{{movie.small_img}}">
+				</div>
+				<div class="col-9">
+			<h2>Reviewing: {{movie.title}} <span class="h4">{{movie.pub_date}}</span></h2>
+				</div>
+			</div>
+
 	<div class="container">
+				
+			
 		<div class="row">
 			<form method="post">
 				{% csrf_token %}

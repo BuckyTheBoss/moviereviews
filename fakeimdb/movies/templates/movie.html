@@ -5,6 +5,7 @@
 		<div class="row  mt-4">
 			<div class="col-3">
 				<img src="{{movie.big_img}}" class="bigimage" alt="...">
+				<h3>Average rating: {{rating}}/10</h3>
 				<hr>
 				<p class="card-text">{{movie.desc}}</p>
 			</div>
@@ -24,9 +25,9 @@
 							<footer class="blockquote-footer">{{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></footer>
 						</blockquote>
 						<div>
-							<button class="btn btn-sm btn-outline-success">up</button>
-							<button class="btn btn-sm btn-outline-danger">down</button>
-							<span>Review Score: 0</span>
+							<a href="{% url 'upvote' review.id %}" class="btn btn-sm btn-outline-success">up</a>
+						<a href="{% url 'downvote' review.id %}" class="btn btn-sm btn-outline-danger">down</a>
+						<span>Review Score: {{review.votes}}</span>
 							<a class="btn btn-outline-dark" href="{% url 'review' review.id %}">See Review</a>
 						</div>
 					</div>

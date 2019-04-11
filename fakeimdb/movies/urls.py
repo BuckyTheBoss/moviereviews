@@ -10,4 +10,6 @@ urlpatterns = [
 	path('reviews/<int:review_id>/comment', views.comment, name='comment'),
 	path('reviews/<int:review_id>/upvote', views.upvote, name='upvote'),
 	path('reviews/<int:review_id>/downvote', views.downvote, name='downvote'),
+	path('search', views.search, name='search'),
+
 ]
