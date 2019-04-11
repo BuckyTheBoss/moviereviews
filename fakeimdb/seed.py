@@ -22,11 +22,6 @@ def seed_top_250(number):
 			)
 		movie_to_add.save()
 
-def delete_movies():
-	for movie in Movie.objects.all():
-		movie.delete()
-
-
 def gen_fname():
 	return fake.first_name()
 
@@ -67,7 +62,6 @@ def create_reviews(number):
 			)
 		review.save()
 
-
 def create_comments(number):
 	'''number being passed in is to represent the amount of comments per review
 	not the total amount, the total amount will be 2 * amount of reviews'''
@@ -80,5 +74,14 @@ def create_comments(number):
 				)
 			comment.save()
 
+def delete_movies():
+	for movie in Movie.objects.all():
+		movie.delete()
 
+def delete_reviews():
+	for review in MovieReview.objects.all():
+		review.delete()
 
+def delete_comments():
+	for comment in ReviewComment.objects.all():
+		comment.delete()

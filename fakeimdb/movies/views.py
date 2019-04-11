@@ -18,7 +18,8 @@ def movie(request, movie_id):
 	rating = 0
 	for review in movie.moviereview_set.all():
 		rating += review.rating
-	rating = rating/movie.moviereview_set.count()
+	if movie.moviereview_set.count() != 0:
+		rating = rating/movie.moviereview_set.count()
 
 	return render(request, 'movie.html', {'movie' : movie, 'rating' : rating})
 
