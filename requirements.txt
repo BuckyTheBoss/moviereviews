@@ -1,0 +1,4 @@
+Django==2.2
+Faker==1.0.4
+IMDbPY==6.6
+django-crispy-forms==1.7.2

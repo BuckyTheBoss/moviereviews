@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{movie.title}} | FakeIMDB{% endblock %}
+{% block content %}
+	<div class="container">
+		<div class="row  mt-4">
+			<div class="col-3">
+				<img src="{{movie.big_img}}" class="bigimage" alt="...">
+				<hr>
+				<p class="card-text">{{movie.desc}}</p>
+			</div>
+			<div class="col-9">
+				<h2>{{movie.title}} <span class="h4">({{movie.pub_date}})</span></h2>
+				<a href="{% url 'add_review' movie.id %}" class="btn btn-primary">Add Review</a>
+				<hr>
+				{% for review in movie.moviereview_set.all %}
+					<div class="card mt-4">
+						<div class="card-header d-flex justify-content-between">
+							<div>{{review.title}}</div>
+							<div>Rating: {{review.rating}}/10</div>
+						</div>
+						<div class="card-body d-flex justify-content-between">
+							<blockquote class="blockquote mb-0">
+								<p>{{review.content}}</p>
+							<footer class="blockquote-footer">{{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></footer>
+						</blockquote>
+						<div>
+							<button class="btn btn-sm btn-outline-success">up</button>
+							<button class="btn btn-sm btn-outline-danger">down</button>
+							<span>Review Score: 0</span>
+							<a class="btn btn-outline-dark" href="{% url 'review' review.id %}">See Review</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
