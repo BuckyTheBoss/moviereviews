@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movies',
     'crispy_forms',
+    'crispy_forms_materialize',
 
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'materialize_css_forms'
 
 
 MIDDLEWARE = [

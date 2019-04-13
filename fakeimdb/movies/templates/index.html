@@ -5,16 +5,22 @@
 	<div class="container">
 		<div class="row">
 			{% for movie in movies %}
-				<div class="card moviecard m-4" >
-					<img src="{{movie.small_img}}" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">{{movie.title}}</h5>
-						<p class="card-text">{{movie.desc | truncatechars:100 }}</p>
-						<a href="{% url 'movie' movie.id %}" class="btn btn-primary">Reviews</a>
+				
+				<div class="col l3 s6">
+					<div class="card medium">
+						<div class="card-image">
+							<img src="{{movie.small_img}}">
+							<span class="card-title">{{movie.title}}</span>
+						</div>
+						<div class="card-content">
+							<p>{{movie.desc | truncatechars:100 }}</p>
+						</div>
+						<div class="card-action blue-text">
+							<a class="green-text" href="{% url 'movie' movie.id %}"><i class="material-icons">edit</i> Reviews</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
-		
 	</div>
 {% endblock %}

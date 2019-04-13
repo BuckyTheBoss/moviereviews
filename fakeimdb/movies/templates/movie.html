@@ -2,40 +2,38 @@
 {% block title %}{{movie.title}} | FakeIMDB{% endblock %}
 {% block content %}
 	<div class="container">
-		<div class="row  mt-4">
-			<div class="col-3">
+		<div class="row">
+			<div class="col l3 s12">
 				<img src="{{movie.big_img}}" class="bigimage" alt="...">
-				<h3>Average rating: {{rating}}/10</h3>
+				<h5>Average rating: {{rating}}/10</h5>
 				<hr>
 				<p class="card-text">{{movie.desc}}</p>
 			</div>
-			<div class="col-9">
+
+			<div class="col l9 s12">
 				<h2>{{movie.title}} <span class="h4">({{movie.pub_date}})</span></h2>
-				<a href="{% url 'add_review' movie.id %}" class="btn btn-primary">Add Review</a>
+				<a href="{% url 'add_review' movie.id %}" class="btn green">Add Review</a>
 				<hr>
+
 				{% for review in movie.moviereview_set.all %}
-					<div class="card mt-4">
-						<div class="card-header d-flex justify-content-between">
-							<div>{{review.title}}</div>
-							<div>Rating: {{review.rating}}/10</div>
-						</div>
-						<div class="card-body d-flex justify-content-between">
-							<div class="blockquote mb-0">
-								<p>{{review.content}}</p>
-							<footer class="blockquote-footer">{{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></footer>
-						</div>
-						<div class="ml-4">
-							<div class="d-flex">
-								<a href="{% url 'upvote' review.id %}" class="btn btn-sm btn-outline-success"><img src="https://img.icons8.com/material-two-tone/30/000000/thumb-up.png"></a>
-						<a href="{% url 'downvote' review.id %}" class="btn btn-sm btn-outline-danger"><img src="https://img.icons8.com/material-two-tone/30/000000/thumbs-down.png"></a>
-					</div>
-						<h6>Review Score: {{review.votes}}</h6>
-							<a class="btn btn-outline-dark" href="{% url 'review' review.id %}">See Review</a>
-						</div>
-					</div>
-				</div>
+					<div class="card green lighten-4">
+        <div class="card-content ">
+          <span class="card-title ">{{review.title}}</span>
+          <h6>Rating: {{review.rating}}/10</h6>
+          <p>{{review.content}}</p>
+          
+          <p>- {{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></p>
+        </div>
+        <div class="card-action ">
+        	<h6>Review Score: {{review.votes}}</h6>
+          	<a href="{% url 'upvote' review.id %}" class="btn waves-effect waves-light green"><i class="material-icons">expand_less</i></a>
+			<a href="{% url 'downvote' review.id %}" class="btn waves-effect waves-light red"><i class="material-icons">expand_more</i></a>
+        </div>
+      </div>
 			{% endfor %}
+
 		</div>
 	</div>
 </div>
 {% endblock %}
+
