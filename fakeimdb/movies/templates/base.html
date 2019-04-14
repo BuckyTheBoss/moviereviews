@@ -18,7 +18,7 @@
   <title>{% block title %}{% endblock %}</title>
   {% block nav %}
 
-<nav class="blue">
+<nav class="blue lighten-1">
     <div class="nav-wrapper">
       <a href="{% url 'index' %}" class="brand-logo">
   <i class="material-icons">movie</i>
@@ -43,11 +43,11 @@
 {% block search %}
 
 <div class="fixed-action-btn">
-  <a href="#" class="btn-floating btn-large blue">
+  <a href="#" class="btn-floating btn-large blue lighten-1">
     <i class="large material-icons">search</i>
   </a>
   <ul>
-    <li><a href="{% url 'search' %}" class="btn-floating blue tooltipped" data-position="left" data-tooltip="Search Local"><i class="material-icons">search</i></a></li>
+    <li><a href="{% url 'search' %}" class="btn-floating blue lighten-3 tooltipped" data-position="left" data-tooltip="Search Local"><i class="material-icons">search</i></a></li>
     <li><a href="{% url 'imdbsearch' %}" class="btn-floating yellow darken-1 tooltipped" data-position="left" data-tooltip="Search IMDb"><i class="material-icons">search</i></a></li>
       
  

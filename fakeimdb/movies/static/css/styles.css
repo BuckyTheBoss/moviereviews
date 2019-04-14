@@ -5,3 +5,31 @@
 .bigimage {
 	width: 100%;
 }
+
+.blockquote {
+    border-left: 5px solid #4caf50;
+}
+
+.mt1 {
+	margin-top: 5px;
+}
+
+.ml1 {
+	margin-left: 5px;
+}
+
+.mt2 {
+	margin-top: 10px;
+}
+
+.ml2 {
+	margin-left: 10px;
+}
+
+.mt3 {
+	margin-top: 15px;
+}
+
+.ml3 {
+	margin-left: 15px;
+}

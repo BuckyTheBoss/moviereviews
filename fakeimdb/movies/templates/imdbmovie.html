@@ -2,17 +2,16 @@
 {% block title %}{{movie.title}} | FakeIMDB{% endblock %}
 {% block content %}
 	<div class="container">
-		<div class="row">
-			<div class="col-3">
+		<div class="row mt3">
+			<div class="col l3 s12">
 			<img src="{{movie.get_fullsizeURL}}" class="bigimage" alt="...">
 				<hr>
 				<p class="card-text">{{movie.plot.0}}</p>
 			</div>
 
-			<div class="col-9">
+			<div class="col l9 s12">
 				<h2>{{movie.title}} <span class="h4">({{movie.year}})</span></h2>
-				<a href="{% url 'add_movie' movie.movieID %}" class="btn btn-primary">Add to database</a>
-				<hr>
+				<a href="{% url 'add_movie' movie.movieID %}" class="btn green">Add to database</a>
 		
 	</div>
 </div>

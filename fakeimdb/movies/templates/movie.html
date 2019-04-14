@@ -2,38 +2,35 @@
 {% block title %}{{movie.title}} | FakeIMDB{% endblock %}
 {% block content %}
 	<div class="container">
-		<div class="row">
+		<div class="row mt3">
 			<div class="col l3 s12">
 				<img src="{{movie.big_img}}" class="bigimage" alt="...">
 				<h5>Average rating: {{rating}}/10</h5>
 				<hr>
 				<p class="card-text">{{movie.desc}}</p>
 			</div>
-
 			<div class="col l9 s12">
 				<h2>{{movie.title}} <span class="h4">({{movie.pub_date}})</span></h2>
 				<a href="{% url 'add_review' movie.id %}" class="btn green">Add Review</a>
 				<hr>
-
 				{% for review in movie.moviereview_set.all %}
 					<div class="card green lighten-4">
-        <div class="card-content ">
-          <span class="card-title ">{{review.title}}</span>
-          <h6>Rating: {{review.rating}}/10</h6>
-          <p>{{review.content}}</p>
-          
-          <p>- {{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></p>
-        </div>
-        <div class="card-action ">
-        	<h6>Review Score: {{review.votes}}</h6>
-          	<a href="{% url 'upvote' review.id %}" class="btn waves-effect waves-light green"><i class="material-icons">expand_less</i></a>
-			<a href="{% url 'downvote' review.id %}" class="btn waves-effect waves-light red"><i class="material-icons">expand_more</i></a>
-        </div>
-      </div>
-			{% endfor %}
-
+						<div class="card-content ">
+							<span class="card-title ">{{review.title}}</span>
+							<h6>Rating: {{review.rating}}/10</h6>
+							<blockquote class="blockquote">{{review.content}}</blockquote>
+							
+							<p>- {{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></p>
+						</div>
+						<div class="card-action ">
+							<a class="black-text">Review Score: {{review.votes}}</a>
+							<a href="{% url 'downvote' review.id %}" class="btn waves-effect waves-light red btn-small"><i class="material-icons">exposure_neg_1</i></a>
+							<a href="{% url 'upvote' review.id %}" class="btn waves-effect waves-light green btn-small"><i class="material-icons">exposure_plus_1</i></a>
+							<a href="{% url 'review' review.id %}" class="btn green right btn-small">View review</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
-</div>
 {% endblock %}
-

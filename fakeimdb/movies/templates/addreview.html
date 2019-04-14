@@ -3,24 +3,26 @@
 {% load crispy_forms_tags %}
 {% block content %}
 	<div class="container">
-			<div class="row">
-				<div class="col s3"> 
-			<img src="{{movie.small_img}}">
-				</div>
-				<div class="col s9">
-			<h2>Reviewing: {{movie.title}} <span class="h4">{{movie.pub_date}}</span></h2>
-				</div>
+		<div class="row">
+			<div class="col s3">
+				<img src="{{movie.small_img}}">
 			</div>
-
-				
-			
+			<div class="col s9">
+				<h2>Reviewing: {{movie.title}} <span class="h4">{{movie.pub_date}}</span></h2>
+			</div>
+		</div>
+		
+		
 		<div class="row">
 			<form method="post">
 				{% csrf_token %}
 				{{ form | crispy }}
+				  
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>
 		
 	</div>
+
+
 {% endblock %}

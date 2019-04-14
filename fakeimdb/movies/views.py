@@ -45,6 +45,7 @@ def signup(request):
 
 @login_required
 def add_review(request, movie_id):
+	rangel = range(0,11)
 	movie = Movie.objects.get(pk=movie_id)
 	if request.method == 'POST':
 		review_form = MovieReviewForm(request.POST)
@@ -55,7 +56,7 @@ def add_review(request, movie_id):
 			review.save()
 			return redirect('movie', movie_id)
 	form = MovieReviewForm()
-	return render(request, 'addreview.html', {'form' : form, 'movie' : movie })
+	return render(request, 'addreview.html', {'form' : form, 'movie' : movie, 'rangel' : rangel })
 
 
 @login_required
@@ -85,7 +86,7 @@ def downvote(request, review_id):
 
 def search(request):
 	if request.method != 'POST':
-		return redirect('index')
+		return render(request, 'search_results.html')
 
 	text = request.POST.get('search', '')
 	results = Movie.objects.filter(

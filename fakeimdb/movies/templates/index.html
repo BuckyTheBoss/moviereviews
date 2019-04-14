@@ -10,13 +10,14 @@
 					<div class="card medium">
 						<div class="card-image">
 							<img src="{{movie.small_img}}">
-							<span class="card-title">{{movie.title}}</span>
+							<span class="card-title flow-text">{{movie.title}}</span>
 						</div>
-						<div class="card-content">
+						<div class="card-content ">
 							<p>{{movie.desc | truncatechars:100 }}</p>
 						</div>
 						<div class="card-action blue-text">
-							<a class="green-text" href="{% url 'movie' movie.id %}"><i class="material-icons">edit</i> Reviews</a>
+							<a class="btn btn-small green" href="{% url 'movie' movie.id %}"><i class="material-icons">edit</i> Reviews</a>
+							<a>{{movie.moviereview_set.all__rating}}</a>
 						</div>
 					</div>
 				</div>
