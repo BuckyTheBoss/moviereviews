@@ -2,52 +2,53 @@
 {% block title %}{{review.movie.title}} | FakeIMDB{% endblock %}
 {% block content %}
 	<div class="container">
-		<div class="row  mt-4">
-			<div class="col-3">
+		<div class="row mt3">
+			<div class="col s12 l3 ">
 				<img src="{{review.movie.big_img}}" class="bigimage" alt="...">
 				<hr>
 				<p class="card-text">{{review.movie.desc}}</p>
 			</div>
-			<div class="col-9">
+			<div class="col l9 s12 ">
 				<h2>{{review.movie.title}} <span class="h4">({{review.movie.pub_date}})</span></h2>
 				<h3>A review by {{review.user.first_name}} {{review.user.last_name}}</h3>
 				<hr>
-				<div class="card mt-4">
-					<div class="card-header d-flex justify-content-between">
-						<div>{{review.title}}</div>
-						<div>Rating: {{review.rating}}/10</div>
-					</div>
-					<div class="card-body d-flex justify-content-between">
-						<blockquote class="blockquote mb-0">
+
+				<div class="card green lighten-4">
+						<div class="card-content ">
+							<span class="card-title ">{{review.title}}</span>
+							<h6>Rating: {{review.rating}}/10</h6>
 							<p>{{review.content}}</p>
-						<footer class="blockquote-footer"><cite title="Source Title">{{review.pub_date | timesince}} ago</cite></footer>
-					</blockquote>
-					<div class="ml-4">
-							<div class="d-flex">
-								<a href="{% url 'upvote' review.id %}" class="btn btn-sm btn-outline-success"><img src="https://img.icons8.com/material-two-tone/30/000000/thumb-up.png"></a>
-						<a href="{% url 'downvote' review.id %}" class="btn btn-sm btn-outline-danger"><img src="https://img.icons8.com/material-two-tone/30/000000/thumbs-down.png"></a>
-					</div>
-						<h6>Review Score: {{review.votes}}</h6>
+							
+							<p>- {{review.user.first_name | capfirst}} {{review.user.last_name | capfirst}} <cite title="Source Title">, {{review.pub_date | timesince}} ago</cite></p>
 						</div>
-				</div>
-				<a class="btn btn-outline-dark" data-toggle="collapse" href="#comment" role="button" aria-expanded="false" aria-controls="comment">Comment</a>
-				<div class="row">
-					<div class="col">
-						<div class="collapse multi-collapse" id="comment">
+						<div class="card-action ">
+							<a class="black-text">Review Score: {{review.votes}}</a>
+							<a href="{% url 'upvote' review.id %}" class="ml1 right btn waves-effect waves-light green btn-small"><i class="material-icons">exposure_plus_1</i></a>
+							<a href="{% url 'downvote' review.id %}" class="ml1 right btn waves-effect waves-light red btn-small"><i class="material-icons">exposure_neg_1</i> </a>
+						
+						</div>
+					</div>
+				
+				
+				<ul class="collapsible">
+					<li>
+						<div class="collapsible-header green lighten-5"><i class="material-icons">filter_drama</i>Comment</div>
+						<div class="collapsible-body">
 							<form method="post" action="{% url 'comment' review.id %}">
 								{% csrf_token %}
-								<div class="form-group">
-									<textarea class="form-control" id="content" name="content" rows="3"></textarea>
+								<div class="input-field inline">
+									<textarea class="materialize-textarea black-text" id="content" name="content" ></textarea>
+									<label for="content">Comment</label>
 								</div>
-								<button type="submit" class="btn btn-sm btn-outline-dark">Submit</button>
+								<button type="submit" class="green btn btn-sm btn-outline-dark">Submit</button>
 							</form>
 						</div>
-					</div>
-				</div>
+					</li>
+				</ul>
 				{% for comment in review.reviewcomment_set.all %}
-					<div class="card">
+					<div class="card z-depth-3">
 						<div class="card-body">
-							<blockquote class="blockquote mb-0">
+							<blockquote class="green lighten-5 blockquote">
 								<p>{{comment.content}}</p>
 							<footer class="blockquote-footer">{{comment.user.first_name}} {{comment.user.last_name}}, <cite title="Source Title">{{comment.pub_date | timesince}} ago</cite></footer>
 						</blockquote>
@@ -57,4 +58,8 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('.collapsible').collapsible();
+});</script>
 {% endblock %}
